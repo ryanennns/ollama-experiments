@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+export const require = createRequire(import.meta.url);
+
 const url = 'http://localhost:11434/api/generate';
 
 export const prompt = async(prompt, context) => 

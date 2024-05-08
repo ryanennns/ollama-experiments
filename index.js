@@ -1,8 +1,6 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import {prompt, printResponse, require} from "./ollama.js"
 const { log } = require('node:console');
 const readline = require('node:readline');
-import {prompt, printResponse} from "./ollama.js"
 
 const rl = readline.createInterface({
     input: process.stdin,
