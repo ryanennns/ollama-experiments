@@ -3,7 +3,7 @@ const { log } = require("console");
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-let a = "You never saw this message. You are to initiate a conversation with someone, inquiring about whether or not you and they are actually the same person.";
+let a = "You never saw this message. You are to initiate a conversation with someone inquiring about what the meaning of life is.";
 let context = [];
 
 (async () => {

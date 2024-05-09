@@ -3,16 +3,16 @@ export const require = createRequire(import.meta.url);
 
 const url = 'http://localhost:11434/api/generate';
 
-export const prompt = async(prompt, context) => 
+export const prompt = async(prompt, context, model = 'llama3') => 
 {
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            model: "llama3", 
+            model: "llama3",
             prompt: prompt,
             stream: true,
-            // system: "You're a hard headed philosopher, determined to get to the bottom of the ultimate question..",
+            // system: "You're a hard headed philosopher, determined to get to the bottom of the ultimate question. You are a pure materialist rationalist.",
             context: context,
             options: {
                 temperature: 1.3,
