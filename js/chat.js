@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 
 let context = [];
 
-function askQuestion() {
+const askQuestion = () => {
     console.log("\n")
     rl.question(`>>> `, async (answer) => {
         const reader = await prompt(answer, context);
