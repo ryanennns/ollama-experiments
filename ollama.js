@@ -10,6 +10,7 @@ export const prompt = async (
 ) => {
     const responseFormat = {
         response: "",
+        terminal_commands: [],
     };
 
     const response = await fetch(url, {
@@ -22,7 +23,7 @@ export const prompt = async (
             system: system,
             context: context,
             options: {
-                temperature: 0.6,
+                temperature: 1.0,
                 repeat_penalty: 0.9,
             }
         })
@@ -47,6 +48,31 @@ export const printResponse = async (reader) => {
 
             finalString += reply
             process.stdout.write(reply);
+
+            if (response.done) {
+                context = response.context;
+            }
+        }
+    }
+
+    return {finalString, context};
+}
+
+export const formatResponse = async (reader) => {
+    let done = false;
+    let finalString = "";
+    let context = [];
+
+    while (!done) {
+        const stream = await reader.read();
+        const value = stream.value;
+        done = stream.done;
+        if (value) {
+            const text = new TextDecoder().decode(value, {stream: true});
+            const response = JSON.parse(text);
+            const reply = response.response;
+
+            finalString += reply
 
             if (response.done) {
                 context = response.context;
