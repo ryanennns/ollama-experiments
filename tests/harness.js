@@ -1,3 +1,8 @@
 export const run = (implementation, ...params) => {
-    return eval(`(${implementation})(${params.map(param => JSON.stringify(param)).join(",")})`);
+    try {
+        return eval(`(${implementation})(${params.map(param => JSON.stringify(param)).join(",")})`);
+    } catch (e) {
+        // console.log("Error executing function");
+        // console.log(implementation);
+    }
 };
