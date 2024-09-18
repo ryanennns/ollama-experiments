@@ -1,4 +1,4 @@
-import {prompt, printResponse, require} from "./ollama.js"
+import {prompt, printResponse, require} from "../utils/ollama.js"
 const { log } = require("console");
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));

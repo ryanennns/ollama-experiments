@@ -1,4 +1,4 @@
-import {prompt, printResponse, require} from "./ollama.js"
+import {prompt, printResponse, require} from "../utils/ollama.js"
 const readline = require('node:readline');
 
 const rl = readline.createInterface({

@@ -17,9 +17,9 @@ export const prompt = async (
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            model: "llama3",
+            model: "llama3.1",
             prompt: prompt,
-            stream: true,
+            stream: false,
             system: system,
             context: context,
             options: {
@@ -30,7 +30,7 @@ export const prompt = async (
     });
 
     return response.body.getReader();
-}
+};
 
 export const printResponse = async (reader) => {
     let done = false;
@@ -46,7 +46,7 @@ export const printResponse = async (reader) => {
             const response = JSON.parse(text);
             const reply = response.response;
 
-            finalString += reply
+            finalString += reply;
             process.stdout.write(reply);
 
             if (response.done) {
@@ -56,7 +56,41 @@ export const printResponse = async (reader) => {
     }
 
     return {finalString, context};
-}
+};
+
+// lord forgive this stinky, stinky function
+export const formatResponseForJsWriter = async (reader) => {
+    let done = false;
+    let finalString = "";
+    let finalReturnedLLMData = "";
+    let context = [];
+
+    while (!done) {
+        const stream = await reader.read();
+        const value = stream.value;
+        done = stream.done;
+
+        if (!stream.done) {
+            const text = new TextDecoder().decode(value, {stream: true});
+            finalReturnedLLMData += text;
+
+            continue;
+        }
+
+        if (stream.done) {
+            const response = JSON.parse(finalReturnedLLMData);
+            const reply = response.response;
+
+            finalString += reply
+
+            if (response.done) {
+                context = response.context;
+            }
+        }
+    }
+
+    return {finalString, context};
+};
 
 export const formatResponse = async (reader) => {
     let done = false;
@@ -69,16 +103,16 @@ export const formatResponse = async (reader) => {
         done = stream.done;
         if (value) {
             const text = new TextDecoder().decode(value, {stream: true});
-            const response = JSON.parse(text);
-            const reply = response.response;
+            // const response = JSON.parse(text);
+            // const reply = response.response;
 
-            finalString += reply
+            // finalString += reply
 
-            if (response.done) {
-                context = response.context;
-            }
+            // if (response.done) {
+            //     context = response.context;
+            // }
         }
     }
 
     return {finalString, context};
-}
+};

@@ -1,5 +1,5 @@
 import {exec} from 'child_process';
-import {formatResponse, prompt, require} from './ollama.js';
+import {formatResponse, prompt, require} from '../utils/ollama.js';
 
 const readline = require('node:readline');
 
