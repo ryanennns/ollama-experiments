@@ -1,4 +1,4 @@
-import  {run} from "./harness.js";
+import  {run} from "./_harness.js";
 
 export default {
     prompt: "There is an integer array nums sorted in ascending order (with distinct values). Prior to being passed to" +

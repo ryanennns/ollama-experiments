@@ -1,4 +1,4 @@
-import {run} from "./harness.js";
+import {run} from "./_harness.js";
 
 export default {
     prompt: "You are to write a function that takes in an array of numbers and returns the sum of the numbers in the array.",

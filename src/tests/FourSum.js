@@ -1,4 +1,4 @@
-import {run} from "./harness.js";
+import {run} from "./_harness.js";
 
 export default {
     prompt: "Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b]," +
